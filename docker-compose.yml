@@ -5,8 +5,8 @@ services:
     container_name: binance-bot
     build:
       context: ./
-      target: dev-stage
-      # target: production-stage
+      # target: dev-stage
+      target: production-stage
     networks:
       - internal
     volumes:
@@ -17,8 +17,8 @@ services:
       - .env
     restart: unless-stopped
     environment:
-      - BINANCE_MODE=test
-      # - BINANCE_MODE=live
+      # - BINANCE_MODE=test
+      - BINANCE_MODE=live
       - BINANCE_JOBS_ALIVE_ENABLED=true
       - BINANCE_JOBS_TRAILING_TRADE_ENABLED=true
       - BINANCE_JOBS_TRAILING_TRADE_SYMBOLS=["BTCUSDT", "ETHUSDT", "BNBUSDT"]
@@ -63,16 +63,6 @@ services:
     volumes:
       - mongo_data:/data/db
 
-  binance-mongo-express:
-    container_name: binance-mongo-express
-    image: mongo-express:0.54
-    restart: unless-stopped
-    networks:
-      - internal
-    ports:
-      - 8081:8081
-    environment:
-      ME_CONFIG_MONGODB_SERVER: binance-mongo
 
 networks:
   internal:
